@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Image Viewer</title>
+    <link rel="stylesheet" href="viewer/viewer.min.css">
+    <script src="viewer/viewer.min.js"></script>
+</head>
+
+<body>
+    <div>
+        <img id="image" src="" alt="Picture" style="display:none;">
+    </div>
+    <script>
+        function extensionAllowed(url) {
+            var isAllowed = false;
+            var allowedExtensions = ['.jpg', '.jpeg', '.png', '.gif'];
+            allowedExtensions.forEach(function(ext) {
+                if(url.endsWith(ext)){
+                    isAllowed = true;
+                }
+            });
+            return isAllowed;
+        }
+        (function () {
+            var url = window.location.href;
+            
+            console.log(url);
+            var urlParts = url.split('#');
+            if (urlParts[1]) {
+                document.getElementById("image").setAttribute("src", urlParts[1]);
+                var viewer = new Viewer(document.getElementById("image"), {
+                    title: 0,
+                    button: false,
+                    navbar: false,
+                    toolbar: {
+                        rotateLeft: 1,
+                        rotateRight: 1,
+                        zoomIn: 1,
+                        zoomOut: 1
+                    }
+                });
+                viewer.show();
+            }
+        })();
+    </script>
+</body>
+
+</html>
