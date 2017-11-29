@@ -7,16 +7,19 @@
         .find("div.multiplefile-buttons");
     }
 
-    function addViewers() {
+    function addViewers(width, height) {
+        width = width || 600;
+        height = height || 900;
+
         var imageAttachmentRows = getFileRows("fa-file-image-o");
         var pdfAttachmentRows = getFileRows("fa-file-pdf-o");
 
         if (imageAttachmentRows) {
-            addViewerToRow(imageAttachmentRows, 'ImageViewer');
+            addViewerToRow(imageAttachmentRows, 'ImageViewer', width, height);
         }
 
         if (pdfAttachmentRows) {
-            addViewerToRow(pdfAttachmentRows, 'PDFViewer');
+            addViewerToRow(pdfAttachmentRows, 'PDFViewer', width, height);
         }
         $(".multiplefile-buttons > div.col-xs-5").removeClass("col-xs-5").addClass("col-xs-3");
         if($(".pm-multiplefile-download").hasClass("col-xs-10")){
@@ -27,7 +30,7 @@
         
     }
 
-    function addViewerToRow(rowCollection, viewerType) {
+    function addViewerToRow(rowCollection, viewerType, width, height) {
         var host = PMDynaform.getHostName();
 
         rowCollection.each(function (index, element) {
@@ -42,7 +45,7 @@
                 .attr('target', '_blank')
                 .click(function (e) {
                     e.preventDefault();
-                    window.open(newHref, '', 'outerWidth=600');
+                    window.open(newHref, '', 'width=' + width +',height=' + height);
                     return false;
                 });
 
